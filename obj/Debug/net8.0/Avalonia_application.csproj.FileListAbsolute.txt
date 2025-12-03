@@ -1,0 +1,2 @@
+C:\Users\Andrey\Avalonia_application\obj\Debug\net8.0\Avalonia_application.csproj.AssemblyReference.cache
+C:\Users\Andrey\Avalonia_application\obj\Debug\net8.0\Avalonia\Resources.Inputs.cache

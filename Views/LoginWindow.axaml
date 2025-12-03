@@ -1,0 +1,33 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="clr-namespace:Avalonia_application.ViewModels"
+        x:Class="Avalonia_application.Views.LoginWindow"
+        Title="Вход в систему"
+        Width="400" Height="300">
+        
+    <Window.DataContext>
+        <vm:LoginViewModel/>
+    </Window.DataContext>
+    
+    <Border Padding="20">
+        <StackPanel Spacing="15">
+            <TextBlock Text="Система управления гостиницей" FontSize="18" FontWeight="Bold" HorizontalAlignment="Center"/>
+            
+            <StackPanel Spacing="5">
+                <TextBlock Text="Имя пользователя:"/>
+                <TextBox Text="{Binding Username}" />
+            </StackPanel>
+            
+            <StackPanel Spacing="5">
+                <TextBlock Text="Пароль:"/>
+                <TextBox Text="{Binding Password}" PasswordChar="*"/>
+            </StackPanel>
+            
+            <TextBlock Text="{Binding ErrorMessage}" Foreground="Red" HorizontalAlignment="Center"/>
+            
+            <Button Content="Войти" Command="{Binding LoginCommand}" 
+                    HorizontalAlignment="Center" Width="100" Height="30"
+                    Margin="0,10,0,0"/>
+        </StackPanel>
+    </Border>
+</Window>
