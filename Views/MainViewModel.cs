@@ -55,32 +55,7 @@ namespace Avalonia_application.ViewModels
         private void NavigateToDashboard()
         {
             var dashboard = _serviceProvider.GetService<DashboardView>();
-            if (dashboard != null)
-            {
-                CurrentView = dashboard;
-            }
-        }
-
-        [RelayCommand]
-        private void Navigate(string viewName)
-        {
-            Control? view = viewName switch
-            {
-                "RoomManagement" => _serviceProvider.GetService<RoomManagementView>(),
-                "AvailableRooms" => _serviceProvider.GetService<AvailableRoomsView>(),
-                "GuestManagement" => _serviceProvider.GetService<GuestManagementView>(),
-                "NewBooking" => _serviceProvider.GetService<NewBookingView>(),
-                "CleaningSchedule" => _serviceProvider.GetService<CleaningScheduleView>(),
-                "AssignCleaning" => _serviceProvider.GetService<AssignCleaningView>(),
-                "Dashboard" => _serviceProvider.GetService<DashboardView>(),
-                "Reporting" => _serviceProvider.GetService<ReportingView>(),
-                _ => null
-            };
-
-            if (view != null)
-            {
-                CurrentView = view;
-            }
+            CurrentView = dashboard;
         }
 
         [RelayCommand]
@@ -88,19 +63,6 @@ namespace Avalonia_application.ViewModels
         {
             _authService.Logout();
             _navigationService.NavigateTo<LoginWindow>();
-        }
-
-        [RelayCommand]
-        private void ShowAbout()
-        {
-            _navigationService.ShowDialog<AboutWindow>();
-        }
-
-        public override void Dispose()
-        {
-            _timer?.Stop();
-            _timer?.Dispose();
-            base.Dispose();
         }
     }
 }

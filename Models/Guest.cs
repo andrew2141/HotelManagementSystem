@@ -1,3 +1,5 @@
+using System;
+
 namespace Avalonia_application.Models
 {
     public class Guest

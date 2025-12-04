@@ -1,15 +1,15 @@
-using System.Collections.Generic;
 using Avalonia;
 using Avalonia.Controls;
 using Microsoft.Extensions.DependencyInjection;
+using System.Collections.Generic;
 
 namespace Avalonia_application.Services
 {
     public class NavigationService : INavigationService
     {
+        private Stack<Control> _navigationStack = new Stack<Control>();
         private readonly IServiceProvider _serviceProvider;
-        private readonly Stack<Control> _navigationStack = new Stack<Control>();
-        
+
         public NavigationService(IServiceProvider serviceProvider)
         {
             _serviceProvider = serviceProvider;

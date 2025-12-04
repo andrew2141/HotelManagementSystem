@@ -1,54 +1,18 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:vm="clr-namespace:Avalonia_application.ViewModels"
         x:Class="Avalonia_application.Views.MainWindow"
-        Title="Система управления гостиницей">
-        
-    <Window.DataContext>
-        <vm:MainViewModel/>
-    </Window.DataContext>
-    
-    <DockPanel>
-        <!-- Верхнее меню -->
-        <MenuBar DockPanel.Dock="Top">
-            <MenuItem Header="Файл">
-                <MenuItem Header="Выход" Command="{Binding LogoutCommand}"/>
-            </MenuItem>
-            <MenuItem Header="Номера">
-                <MenuItem Header="Управление номерами" Command="{Binding NavigateCommand}" CommandParameter="RoomManagement"/>
-                <MenuItem Header="Свободные номера" Command="{Binding NavigateCommand}" CommandParameter="AvailableRooms"/>
-            </MenuItem>
-            <MenuItem Header="Гости">
-                <MenuItem Header="Список гостей" Command="{Binding NavigateCommand}" CommandParameter="GuestManagement"/>
-                <MenuItem Header="Новое бронирование" Command="{Binding NavigateCommand}" CommandParameter="NewBooking"/>
-            </MenuItem>
-            <MenuItem Header="Уборка">
-                <MenuItem Header="График уборки" Command="{Binding NavigateCommand}" CommandParameter="CleaningSchedule"/>
-                <MenuItem Header="Назначить уборку" Command="{Binding NavigateCommand}" CommandParameter="AssignCleaning"/>
-            </MenuItem>
-            <MenuItem Header="Отчеты">
-                <MenuItem Header="Аналитика" Command="{Binding NavigateCommand}" CommandParameter="Dashboard"/>
-                <MenuItem Header="Финансовые отчеты" Command="{Binding NavigateCommand}" CommandParameter="Reporting"/>
-            </MenuItem>
-            <MenuItem Header="Справка">
-                <MenuItem Header="О программе" Command="{Binding ShowAboutCommand}"/>
-            </MenuItem>
-        </MenuBar>
-        
-        <!-- Панель статуса внизу -->
-        <StatusBar DockPanel.Dock="Bottom">
-            <StatusBarItem>
-                <TextBlock Text="{Binding CurrentUserText}"/>
-            </StatusBarItem>
-            <Separator/>
-            <StatusBarItem>
-                <TextBlock Text="{Binding CurrentDateTimeText}"/>
-            </StatusBarItem>
-        </StatusBar>
-        
-        <!-- Основное содержимое -->
-        <Border Padding="10">
-            <ContentControl Content="{Binding CurrentView}"/>
-        </Border>
-    </DockPanel>
+        Title="Система управления гостиницей"
+        Width="1200" Height="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Background="LightGray" Padding="10">
+            <TextBlock Text="{Binding CurrentUserText}" VerticalAlignment="Center" Margin="10,0" />
+            <TextBlock Text="{Binding CurrentDateTimeText}" VerticalAlignment="Center" Margin="10,0" />
+            <Button Content="Выход" Command="{Binding LogoutCommand}" Margin="10,0" />
+        </StackPanel>
+        <ContentControl Grid.Row="1" Content="{Binding CurrentView}" />
+    </Grid>
 </Window>

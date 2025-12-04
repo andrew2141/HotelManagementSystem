@@ -4,51 +4,48 @@ using Avalonia.Markup.Xaml;
 using Avalonia_application.Views;
 using Avalonia_application.Services;
 using Microsoft.Extensions.DependencyInjection;
-using System;
 
 namespace Avalonia_application
 {
     public partial class App : Application
     {
-        public IServiceProvider Services { get; private set; }
+        public IServiceProvider? ServiceProvider { get; private set; }
 
         public override void Initialize()
         {
             AvaloniaXamlLoader.Load(this);
-            ConfigureServices();
-        }
-
-        private void ConfigureServices()
-        {
-            var serviceCollection = new ServiceCollection();
-            
-            // Регистрация сервисов
-            serviceCollection.AddSingleton<INavigationService, NavigationService>();
-            serviceCollection.AddSingleton<IDatabaseService, DatabaseService>();
-            
-            // Регистрация вью-моделей
-            serviceCollection.AddTransient<LoginViewModel>();
-            serviceCollection.AddTransient<MainViewModel>();
-            serviceCollection.AddTransient<DashboardViewModel>();
-            
-            // Регистрация представлений
-            serviceCollection.AddTransient<LoginWindow>();
-            serviceCollection.AddTransient<MainWindow>();
-            serviceCollection.AddTransient<DashboardView>();
-            
-            Services = serviceCollection.BuildServiceProvider();
         }
 
         public override void OnFrameworkInitializationCompleted()
         {
+            ServiceProvider = ConfigureServices();
+
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
-                var loginWindow = Services.GetService<LoginWindow>();
-                loginWindow.DataContext = Services.GetService<LoginViewModel>();
+                var loginWindow = ServiceProvider.GetRequiredService<LoginWindow>();
                 desktop.MainWindow = loginWindow;
             }
 
             base.OnFrameworkInitializationCompleted();
+        }
+
+        private IServiceProvider ConfigureServices()
+        {
+            var services = new ServiceCollection();
+
+            services.AddSingleton<IAuthService, AuthService>();
+            services.AddSingleton<IDatabaseService, DatabaseService>();
+            services.AddSingleton<INavigationService, NavigationService>();
+
+            services.AddTransient<LoginViewModel>();
+            services.AddTransient<MainViewModel>();
+            services.AddTransient<DashboardViewModel>();
+
+            services.AddTransient<LoginWindow>();
+            services.AddTransient<MainWindow>();
+            services.AddTransient<DashboardView>();
+
+            return services.BuildServiceProvider();
         }
     }
 }

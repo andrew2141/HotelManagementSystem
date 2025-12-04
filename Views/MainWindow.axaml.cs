@@ -1,5 +1,4 @@
 using Avalonia.Controls;
-using Avalonia.Markup.Xaml;
 
 namespace Avalonia_application.Views
 {
@@ -8,14 +7,6 @@ namespace Avalonia_application.Views
         public MainWindow()
         {
             InitializeComponent();
-            Width = 1024;
-            Height = 768;
-            WindowStartupLocation = WindowStartupLocation.CenterScreen;
-        }
-
-        private void InitializeComponent()
-        {
-            AvaloniaXamlLoader.Load(this);
         }
     }
 }

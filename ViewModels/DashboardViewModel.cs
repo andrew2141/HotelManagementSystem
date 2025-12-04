@@ -1,13 +1,14 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
-using Avalonia_application.Models;
 using Avalonia_application.Services;
+using Avalonia_application.Models;
 
 namespace Avalonia_application.ViewModels
 {
-    public partial class DashboardViewModel : ObservableObject
+    public partial class DashboardViewModel : ViewModelBase
     {
         private readonly IDatabaseService _databaseService;
 
@@ -19,15 +20,6 @@ namespace Avalonia_application.ViewModels
 
         [ObservableProperty]
         private int _availableRooms;
-
-        [ObservableProperty]
-        private decimal _todayRevenue;
-
-        [ObservableProperty]
-        private decimal _adr;
-
-        [ObservableProperty]
-        private decimal _revPar;
 
         [ObservableProperty]
         private int _occupancyRate;
@@ -49,6 +41,8 @@ namespace Avalonia_application.ViewModels
             try
             {
                 await LoadRoomStatistics();
+                await LoadRecentBookings();
+                await LoadPendingCleaningTasks();
             }
             catch (Exception ex)
             {
@@ -63,6 +57,18 @@ namespace Avalonia_application.ViewModels
             OccupiedRooms = rooms.Count(r => r.Status == "Занят");
             AvailableRooms = TotalRooms - OccupiedRooms;
             OccupancyRate = TotalRooms > 0 ? (int)Math.Round((decimal)OccupiedRooms / TotalRooms * 100) : 0;
+        }
+
+        private async Task LoadRecentBookings()
+        {
+            var bookings = await _databaseService.GetAllBookingsAsync();
+            RecentBookings = bookings.OrderByDescending(b => b.CheckInDate).Take(5).ToList();
+        }
+
+        private async Task LoadPendingCleaningTasks()
+        {
+            var today = DateTime.Today;
+            PendingCleaningTasks = await _databaseService.GetCleaningScheduleAsync(today);
         }
     }
 }
