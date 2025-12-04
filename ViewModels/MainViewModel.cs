@@ -3,7 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using Avalonia_application.Services;
 using Avalonia_application.Views;
 using System;
-using System.Timers;
+using Microsoft.Extensions.DependencyInjection; // Добавлено для GetService<T>()
 
 namespace Avalonia_application.ViewModels
 {
@@ -12,7 +12,7 @@ namespace Avalonia_application.ViewModels
         private readonly IAuthService _authService;
         private readonly INavigationService _navigationService;
         private readonly IServiceProvider _serviceProvider;
-        private readonly Timer _timer;
+        private readonly System.Timers.Timer _timer;
 
         [ObservableProperty]
         private object? _currentView;
@@ -32,15 +32,12 @@ namespace Avalonia_application.ViewModels
             _navigationService = navigationService;
             _serviceProvider = serviceProvider;
             
-            // Устанавливаем текущего пользователя
             UpdateCurrentUserText();
             
-            // Запускаем таймер для обновления времени
-            _timer = new Timer(1000);
+            _timer = new System.Timers.Timer(1000);
             _timer.Elapsed += (s, e) => CurrentDateTimeText = DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss");
             _timer.Start();
             
-            // По умолчанию показываем дашборд
             NavigateToDashboard();
         }
 

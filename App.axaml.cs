@@ -2,6 +2,7 @@ using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using Avalonia_application.Views;
+using Avalonia_application.ViewModels; // Добавлено для ViewModels
 using Avalonia_application.Services;
 using Microsoft.Extensions.DependencyInjection;
 

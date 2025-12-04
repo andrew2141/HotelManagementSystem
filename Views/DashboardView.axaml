@@ -21,7 +21,26 @@
                 <TextBlock Text="{Binding OccupancyRate}" FontSize="20" />
             </StackPanel>
         </StackPanel>
-        <DataGrid Items="{Binding RecentBookings}" AutoGenerateColumns="True" />
-        <DataGrid Items="{Binding PendingCleaningTasks}" AutoGenerateColumns="True" />
+        <TextBlock Text="Последние бронирования" FontSize="16" Margin="0,0,0,10" />
+        <DataGrid ItemsSource="{Binding RecentBookings}" AutoGenerateColumns="False" Margin="0,0,0,20">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding BookingID}" Width="50" />
+                <DataGridTextColumn Header="Гость" Binding="{Binding GuestName}" Width="150" />
+                <DataGridTextColumn Header="Номер" Binding="{Binding RoomNumber}" Width="80" />
+                <DataGridTextColumn Header="Заезд" Binding="{Binding CheckInDate, StringFormat='dd.MM.yyyy'}" Width="100" />
+                <DataGridTextColumn Header="Выезд" Binding="{Binding CheckOutDate, StringFormat='dd.MM.yyyy'}" Width="100" />
+                <DataGridTextColumn Header="Статус" Binding="{Binding Status}" Width="100" />
+            </DataGrid.Columns>
+        </DataGrid>
+        <TextBlock Text="Задачи по уборке" FontSize="16" Margin="0,0,0,10" />
+        <DataGrid ItemsSource="{Binding PendingCleaningTasks}" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding ScheduleID}" Width="50" />
+                <DataGridTextColumn Header="Номер" Binding="{Binding RoomNumber}" Width="80" />
+                <DataGridTextColumn Header="Дата" Binding="{Binding ScheduledDate, StringFormat='dd.MM.yyyy'}" Width="100" />
+                <DataGridTextColumn Header="Статус" Binding="{Binding Status}" Width="100" />
+                <DataGridTextColumn Header="Уборщик" Binding="{Binding EmployeeName}" Width="150" />
+            </DataGrid.Columns>
+        </DataGrid>
     </StackPanel>
 </UserControl>

@@ -8,11 +8,20 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <StackPanel Grid.Row="0" Orientation="Horizontal" Background="LightGray" Padding="10">
-            <TextBlock Text="{Binding CurrentUserText}" VerticalAlignment="Center" Margin="10,0" />
-            <TextBlock Text="{Binding CurrentDateTimeText}" VerticalAlignment="Center" Margin="10,0" />
-            <Button Content="Выход" Command="{Binding LogoutCommand}" Margin="10,0" />
+        
+        <!-- Панель навигации -->
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Background="LightGray">
+            <!-- Исправление: Padding перенесен с StackPanel на Border -->
+            <Border Padding="10">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{Binding CurrentUserText}" VerticalAlignment="Center" Margin="10,0" />
+                    <TextBlock Text="{Binding CurrentDateTimeText}" VerticalAlignment="Center" Margin="10,0" />
+                    <Button Content="Выход" Command="{Binding LogoutCommand}" Margin="10,0" />
+                </StackPanel>
+            </Border>
         </StackPanel>
+        
+        <!-- Основное содержимое -->
         <ContentControl Grid.Row="1" Content="{Binding CurrentView}" />
     </Grid>
 </Window>

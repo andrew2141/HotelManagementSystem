@@ -1,5 +1,7 @@
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.ApplicationLifetimes; // Добавлено для IClassicDesktopStyleApplicationLifetime
+using Avalonia_application.Views; // Добавлено для MainWindow
 using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
 

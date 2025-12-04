@@ -1,25 +1,26 @@
-﻿<Project Sdk="Avalonia.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
+    <OutputType>WinExe</OutputType>
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
-    <ApplicationIcon />
-    <StartupObject>Avalonia_application.Program</StartupObject>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <!-- Ключевой фикс AVLN2002: Включает правильный Avalonia-обработчик -->
+    <UseAvalonia>true</UseAvalonia>
   </PropertyGroup>
-  
-  <ItemGroup>
-    <PackageReference Include="Avalonia" Version="11.1.0" />
-    <PackageReference Include="Avalonia.Desktop" Version="11.1.0" />
-    <PackageReference Include="Avalonia.Themes.Fluent" Version="11.1.0" />
-    <PackageReference Include="Avalonia.Fonts.Inter" Version="11.1.0" />
-    <PackageReference Include="Avalonia.Controls.DataGrid" Version="11.1.0" />
-    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
-    <PackageReference Include="Npgsql" Version="8.0.3" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
-  </ItemGroup>
 
   <ItemGroup>
-    <AvaloniaResource Include="Assets\**" />
-    <AvaloniaResource Include="App.axaml" />
+    <PackageReference Include="Avalonia" Version="11.1.3" />
+    <PackageReference Include="Avalonia.Desktop" Version="11.1.3" />
+    <PackageReference Include="Avalonia.Themes.Fluent" Version="11.1.3" />
+    <PackageReference Include="Avalonia.Fonts.Inter" Version="11.1.3" />
+    <PackageReference Include="Avalonia.Controls.DataGrid" Version="11.1.3" />
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.3.0" />
+    <PackageReference Include="Npgsql" Version="8.0.5" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.1" />
   </ItemGroup>
+
+  <!-- НИКАКИХ AvaloniaResource! Avalonia сам подхватывает App.axaml без дубликатов -->
+  <!-- Если есть Assets, добавьте: <AvaloniaResource Include="Assets\**" /> -->
+
 </Project>
